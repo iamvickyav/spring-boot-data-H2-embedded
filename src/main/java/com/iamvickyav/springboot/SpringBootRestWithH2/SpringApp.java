@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootRestWithH2App {
+public class SpringApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootRestWithH2App.class, args);
+		SpringApplication.run(SpringApp.class, args);
 	}
 }
