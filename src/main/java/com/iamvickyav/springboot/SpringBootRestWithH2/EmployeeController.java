@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class EmployeeController {
@@ -17,9 +18,9 @@ public class EmployeeController {
 
     // Select, Insert, Delete, Update Operations for an Employee
 
-    @RequestMapping(value = "/employee", method = RequestMethod.GET)
-    Employee getEmployee(@RequestParam Integer id){
-        return  employeeService.findOne(id);
+    @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
+    Employee getEmployee(@PathVariable Integer id){
+        return  employeeService.findById(id).get();
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
@@ -35,11 +36,16 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.DELETE)
-    Map deleteEmployee(@RequestParam Integer id){
-        employeeService.delete(id);
-
+    Map<String, String> deleteEmployee(@RequestParam Integer id){
         Map<String, String> status = new HashMap<>();
-        status.put("Status", "Success");
+        Optional<Employee> employee = employeeService.findById(id);
+        if(employee.isPresent()) {
+            employeeService.delete(employee.get());
+            status.put("Status", "Employee deleted successfully");
+        }
+        else {
+            status.put("Status", "Employee not exist");
+        }
         return status;
     }
 
@@ -52,7 +58,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employees", method = RequestMethod.POST)
     String addAllEmployees(@RequestBody List<Employee> employeeList){
-        employeeService.save(employeeList);
+        employeeService.saveAll(employeeList);
         return "SUCCESS";
     }
 
