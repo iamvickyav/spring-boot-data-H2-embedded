@@ -1,12 +1,6 @@
 # Spring-boot-data-H2-embedded
 
-This Demo App uses Spring Boot Data with H2 In Memory Database
-
-Basic database operations using Spring Data explained with simple examples
-
-Create a Spring Boot application using https://start.spring.io (Spring Initializer) by chosing dependencies as Spring Web & Data
-
-In this app we used H2 in memory database for demo purpose. 
+In this app, I used H2 in-memory database for demo purpose
 
 Application.properties
 
@@ -20,13 +14,10 @@ spring.jpa.hibernate.ddl-auto=none
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
 ```
 
-This single line will do all the magic for you using Spring JPA
+This single interface will do all the magic for you
 
 ```
 public interface EmployeeService extends JpaRepository<Employee, Integer>{
 }
 ```
 
-To download this code
-
-git clone https://github.com/iamvickyav/Spring-boot-data-H2-embedded.git
