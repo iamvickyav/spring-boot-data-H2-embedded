@@ -2,7 +2,7 @@
 
 In this app, I used H2 in-memory database for demo purpose
 
-Application.properties
+*Application.properties*
 
 ```
 spring.datasource.url=jdbc:h2:mem:TEST;DB_CLOSE_DELAY=-1;
@@ -21,3 +21,18 @@ public interface EmployeeService extends JpaRepository<Employee, Integer>{
 }
 ```
 
+To Run without Docker
+
+```
+> mvn clean install
+> java -jar target/spring-h2-demo.jar
+```
+
+To Run with Docker
+```
+> mvn clean install
+> docker build -t springboot-h2-sample
+> docker run -d -p 8080:8080 springboot-h2-sample
+
+> docker stop <image-name>
+```
