@@ -14,7 +14,7 @@ spec:
     spec: 
       containers: 
       - name: spring-boot-app-sample-1 
-        image: iamvickyav/spring-h2-app:#{Build.BuildId}#
+        image: iamvickyav/spring-h2-app:v1
         ports: 
         - containerPort: 8080 
 --- 
