@@ -1,0 +1,33 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2 
+kind: Deployment 
+metadata: 
+  name: spring-boot-deployment 
+spec: 
+  selector: 
+    matchLabels: 
+      app: spring-boot-app-sample-1 
+  replicas: 2 # tells deployment to run 2 pods matching the template 
+  template:
+    metadata: 
+      labels: 
+        app: spring-boot-app-sample-1 
+    spec: 
+      containers: 
+      - name: spring-boot-app-sample-1 
+        image: iamvickyav/spring-h2-app:#{Build.BuildId}#
+        ports: 
+        - containerPort: 8080 
+--- 
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
+kind: Service 
+apiVersion: v1 
+metadata: 
+  name: spring-boot-service
+spec: 
+  selector: 
+    app: spring-boot-app-sample-1  
+  ports: 
+  - protocol: TCP 
+    port: 8080 
+    targetPort: 8080 
+  type: LoadBalancer 
