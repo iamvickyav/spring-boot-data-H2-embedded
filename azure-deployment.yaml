@@ -16,7 +16,7 @@ spec:
       - name: spring-boot-app-sample-1 
         image: iamvickyav/spring-h2-app:v1
         ports: 
-        - containerPort: 8080 
+        - containerPort: 8081 
 --- 
 # https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
 kind: Service 
@@ -29,5 +29,5 @@ spec:
   ports: 
   - protocol: TCP 
     port: 8080 
-    targetPort: 8080 
+    targetPort: 8081
   type: LoadBalancer 
