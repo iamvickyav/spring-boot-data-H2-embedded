@@ -29,10 +29,16 @@ public class EmployeeController {
         return "SUCCESS";
     }
 
-    @RequestMapping(value = "/employee", method = RequestMethod.PUT)
-    Employee updateEmployee(@RequestBody Employee employee){
-        Employee updatedEmployee = employeeService.save(employee);
-        return updatedEmployee;
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee, @PathVariable Integer id) {
+        Optional<Employee> optionalEmployee = employeeService.findById(id);
+        if(optionalEmployee.isPresent()) {
+            Employee existingEmployee = optionalEmployee.get();
+            existingEmployee.setName(employee.getName());
+            return ResponseEntity.ok(employeeService.save(existingEmployee));
+        } else {
+            throw new EmployeeNotFoundException("Employee not found with ID: " + id);
+        }
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.DELETE)
